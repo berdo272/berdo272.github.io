@@ -1,6 +1,8 @@
 
 #awesomeText { font-family: 'Times New Roman', Georgia Serif;}
 #TitleText {font-size: 36; color:  #a50909 }
+.button {font-size: 30}
+.buttonpress {text-align: center; font-size: 20}
 .boxed {border: 1px black;}
 .navtext {color: #000000; font-size: 28; text-align: center}
 .bodyparagraph {color: #000000; font-size: 20; text-align: center;background-color: #b0b0b0 }
