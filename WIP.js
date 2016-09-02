@@ -218,7 +218,7 @@ function buyItem(item){
         playerMoney -= 5;
         playerHealth += 10;
         $('#pMoney').html(playerMoney);
-        $('#playerHealth').html(playerHealth);
+        $('#pHealth').html(playerHealth);
         break;
         case 'bronzeChain':
         playerMoney -= (100 - parseInt($('#aValue').text));
@@ -281,6 +281,7 @@ function clearEnemyTable(){
     $('#enemyDef').html("");
     $('#enemyGold').html("");
     $('#enemPicture').html("");
+    document.getElementById("enemyPicture").removeChild(pic);
 }
 function enemyDies(){
     var playerMoney;
@@ -289,7 +290,7 @@ function enemyDies(){
     var gold;
 
     playerMoney = parseInt($('#pMoney').text());
-    playerExp = parseInt($('#Experience').text());
+    playerExp = parseInt($('#pExp').text());
     exp = parseInt($('#enemyExp').text());
     gold = parseInt($('#enemyGold').text());
     playerMoney += gold;
@@ -297,7 +298,7 @@ function enemyDies(){
     alert("The enemy has died! You loot " + gold + "gold, and gain " + exp + " Experience.");
 
     $('#pMoney').html(playerMoney);
-    $('#Experience').html(playerExp);
+    $('#pExp').html(playerExp);
     clearEnemyTable();
 }
 function field(){
@@ -307,6 +308,7 @@ function field(){
     var x = Math.floor((Math.random() * monsters.length));
     var pic = document.createElement("img");
     pic.src = monsters[x].picture;
+    pic.id = "pic"
 
     battleStart();
 

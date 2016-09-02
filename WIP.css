@@ -7,9 +7,9 @@ table, th, td{
 	vertical-align: text-bottom;
 }
 #GameDialog{
-	padding-top: 75px;
-	height:190px;
-	width: 90%;
+	height:290px;
+	width: 100%;
+
 
 }
 #gameText{
