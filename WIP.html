@@ -1,0 +1,69 @@
+</DOCTYPE HTML>
+<html lang="en">
+<meta charset="utf8">
+	<head>
+		<title>Adventure</title>
+		<link rel="stylesheet" type="text/css" href="WIP.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script type="text/javascript" src="WIP.js"></script>
+		<h1 id="TitleText"class="center"> Adventure</h1>		
+</head>
+<body onload="disable()">
+	<div id="column1" style="float:left; margin:0; width:33%;">
+     <table>
+		<tr>
+			<th>Name</th><th>Health</th><th>Energy</th><th>Gold</th><th>Experience</th> 
+		<tr>
+			<td id="pName"><input type="text" id="nameEntry" onchange="enableStart()"></td><td id="pHealth"></td><td id="pEnergy"></td><td id="pMoney"></td><td id="pExp"></td>
+	</table>
+	<table>
+		<tr>
+			<th>Weapon</th><th>Attack Value</th><th>Sell Value</th> 
+		<tr>
+			<td id="wName"></td><td id="wAtk"></td><td id="wValue"></td>
+	</table>
+	<table>
+		<tr>
+			<th>Armour</th><th>Defense Value</th><th>Sell Value</th> 
+		<tr>
+			<td id="aName"></td><td id="aDef"></td><td id="aValue"></td>
+	</table>
+	<table>
+     	<tr>
+     		<th>Controls</th>
+     		<tr>
+     			<td id="Load"><button type="button" id="startGame" onclick="startGame()" disabled>Enter Name to Start</button></td>
+     		<tr>
+     			<td><button type="button" id="saveGame" onclick="saveGame()" disabled>Save Game</button></td>
+     </table>
+    </div>
+
+    <div id="column2" style="float:left; margin:0;width:33%;">
+     &nbsp
+    </div>
+
+    <div id="column3" style="float:left; margin:0;width:33%">
+      <table>
+		<tr>
+			<th>Item Name</th><th>Effect</th><th>Buy Price</th><th>Purchase</th> 
+		<tr>
+			<td>Potion</td><td>Restore 10hp</td><td>5gp</td><td><button id="buyPotion" onlcick="main.buyPotion()" disabled>Purchase</button></td>
+	</table>
+	<table>
+		<tr>
+			<th>Weapon</th><th>Attack Value</th><th>Buy Price</th> <th>Purchase</th>
+		<tr>
+			<td ></td><td></td><td></td><td></td>
+	</table>
+	<table>
+		<tr>
+			<th>Armour</th><th>Defense Value</th><th>Buy Price</th> <th>Purchase</th>
+		<tr>
+			<td></td><td></td><td></td><td></td>
+	</table>
+    </div>
+	
+	<div>
+		<center></center>
+	</div>
+</body>
