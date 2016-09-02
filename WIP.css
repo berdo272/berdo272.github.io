@@ -2,3 +2,25 @@ table, th, td{
 	border: 2px solid black;
 	padding: 5px;
 }
+#MapControls{
+	padding-top: 10px
+	vertical-align: text-bottom;
+}
+#GameDialog{
+	padding-top: 75px;
+	height:190px;
+	width: 90%;
+
+}
+#gameText{
+	background-color: #e1e1ea;
+}
+#enemyStats{
+	vertical-align: text-bottom;
+}
+#enemyGold{
+	display: none;
+}
+#enemyExp{
+	display: none;
+}

@@ -40,6 +40,33 @@
 
     <div id="column2" style="float:left; margin:0;width:33%;">
      &nbsp
+     <div id="GameDialog">
+     <p id="gameText">
+     	This is where the game text will go
+     </p>
+     <div>
+     	<span id="enemyPicture"></span>
+     </div>
+     </div>
+     <table id="enemyStats">
+     	<tr>
+     		<th>Enemy HP</th><th>Enemy Atk</th><th>Enemy Def</th>
+     	<tr>
+     		<td id="enemyHp"></td><td id="enemyAtk"></td><td id="enemyDef"></td><td id="enemyGold"></td><td id="enemyExp"></td>
+     </table>
+     <br>
+     <table id="FightControls">
+     	<TR>
+     		<td><button id="attack" onclick="attack()" disabled>Attack</button></td>
+     		<td><button id="run" onclick="run()" disabled>Run</button></td>
+     </table>
+     <br>
+     <table id="MapControls">
+     	<TR>
+     		<td><button id="field" onclick="field()" disabled>Field</button></td>
+     		<td><button id="forest" onclick="forest()" disabled>Forest</button></td>
+     		<td><button id="cave" onclick="cave()" disabled>Cave</button></td>
+     </table>
     </div>
 
     <div id="column3" style="float:left; margin:0;width:33%">
@@ -47,23 +74,21 @@
 		<tr>
 			<th>Item Name</th><th>Effect</th><th>Buy Price</th><th>Purchase</th> 
 		<tr>
-			<td>Potion</td><td>Restore 10hp</td><td>5gp</td><td><button id="buyPotion" onlcick="main.buyPotion()" disabled>Purchase</button></td>
+			<td>Potion</td><td>Restore 10hp</td><td>5gp</td><td><button id="buyPotion" onlcick="buyItem('potion')" disabled>Purchase</button></td>
 	</table>
 	<table>
 		<tr>
 			<th>Weapon</th><th>Attack Value</th><th>Buy Price</th> <th>Purchase</th>
 		<tr>
-			<td ></td><td></td><td></td><td></td>
+			<td>LongSword</td><td>10</td><td>75</td><td><button id="buyLongSword" onlcick="buyItem('longsword')" disabled>Purchase</button></td>
 	</table>
 	<table>
 		<tr>
 			<th>Armour</th><th>Defense Value</th><th>Buy Price</th> <th>Purchase</th>
 		<tr>
-			<td></td><td></td><td></td><td></td>
+			<td>Bronze Chainmail</td><td>10</td><td>100</td><td><button id="buyBronzeChain" onlcick="buyItem('bronzeChain')" disabled>Purchase</button></td>
 	</table>
     </div>
-	
-	<div>
-		<center></center>
-	</div>
+
+
 </body>
