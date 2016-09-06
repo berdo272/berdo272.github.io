@@ -1,15 +1,10 @@
 "use strict";
-function GetPlayerInput(text) {
-    var input;
-    input = prompt(text);
-    return input;
-}
+
+// Functions for Preserving Game State 
 
 function getCookie(cName) {
     var name = cName + "=";
     var c;
-
-
 
     var cookieArray = document.cookie.split(";");
     for (var i = 0; i < cookieArray.length; i++) {
@@ -93,33 +88,22 @@ function checkCookie(name) {
     }
 }
 
-function SetCookie(Player,Weapon,Armour){
-    var cName = Player.Name;
-    var cValue = "";
-    var playerProps;
-    var weaponProps;
-    var armourProps;
-
-    playerProps = Object.values(Player);
-    weaponProps = Object.values(Weapon);
-    armourProps = Object.values(Armour);
-
-    for (var i=0; i<playerProps.length;i++){
-      cValue += (playerProps[i] + ",");    	        
-  }
-  for (var i=0; i<weaponProps.length;i++){
-      cValue += (weaponProps[i] + ",");       
-  }
-  for (var i=0; i<armourProps.length;i++){
-      cValue += (armourProps[i] + ",");       
-  }
-
-  var d = new Date();
-  d.setTime(d.getTime()+604800000);
-  var expires = "expires="+d.toUTCString();
-
-
-  document.cookie = cName + "=" + cValue + "; " + expires;
+// Control functions for First Start / saving / loading 
+function startGame(){
+    var UserData;
+    var userName = document.getElementById('nameEntry').value
+    UserData = checkCookie(userName);
+    updateTables(UserData);
+    $('#Load').html("<button type=\"button\" id=\"loadGame\" onclick=\"loadGame()\">Load Game</button>");
+    $('#saveGame').prop('disabled',false);
+    enableTravel();
+}
+function loadGame() {    
+    var UserData;
+    var userName = $('#pName').text()
+    UserData = checkCookie(userName);
+    updateTables(UserData);
+    enableTravel();
 }
 function saveGame(){   
     var cValue = "";
@@ -153,6 +137,7 @@ function saveGame(){
     document.cookie = cName + "=" + cValue + "; " + expires;
     alert("Game Saved")
 }
+// Used to pass game state to HMTL table once game is loaded
 function updateTables(UserData){
   $('#pName').html(UserData.CharacterData.Name);
   $('#pHealth').html(UserData.CharacterData.Health);
@@ -167,13 +152,10 @@ function updateTables(UserData){
   $('#aValue').html(UserData.ArmourData.Value);
   checkIfCanBuy(UserData);
 }
-function disable(){
-	$('#startGame').prop('disabled',true);
-	$('#saveGame').prop('disabled',true);
-	$('#buyPotion').prop('disabled',true);
-}
+
+// Functions used to manipulate access to control buttons
 function checkIfCanBuy(UserData){
-	var playerMoney = parseInt($('#pMoney').text());
+    var playerMoney = parseInt($('#pMoney').text());
     var playerHealth = parseInt($('#pHealth').text());
     if (playerMoney >= 5 && playerHealth <= 90){
       $('#buyPotion').prop('disabled',false);
@@ -192,24 +174,38 @@ if (playerMoney >= 100){
 }
 }
 function enableStart(){
-	$('#startGame').prop('disabled',false);
+    $('#startGame').prop('disabled',false);
 }
-function startGame(){
-	var UserData;
-    var userName = document.getElementById('nameEntry').value
-    UserData = checkCookie(userName);
-    updateTables(UserData);
-    $('#Load').html("<button type=\"button\" id=\"loadGame\" onclick=\"loadGame()\">Load Game</button>");
-    $('#saveGame').prop('disabled',false);
-    enableTravel();
+function disable(){
+    $('#startGame').prop('disabled',true);
+    $('#saveGame').prop('disabled',true);
+    $('#buyPotion').prop('disabled',true);
 }
-function loadGame() {	
-    var UserData;
-    var userName = $('#pName').text()
-    UserData = checkCookie(userName);
-    updateTables(UserData);
-    enableTravel();
+function disableTravel(){
+    $('#field').prop('disabled',true);
+    $('#forest').prop('disabled',true);
+    $('#cave').prop('disabled',true);
 }
+function enableBattleCommands(){
+    $('#attack').prop('disabled',false);
+    $('#run').prop('disabled',false);
+}
+function disableBattleCommands(){
+    $('#attack').prop('disabled',true);
+    $('#run').prop('disabled',true);
+}
+function enableTravel(){
+    $('#field').prop('disabled',false);
+    $('#forest').prop('disabled',false);
+    $('#cave').prop('disabled',false);
+}
+function disableShopping(){
+    $('#buyLongSword').prop('disabled',true);
+    $('#buyPotion').prop('disabled',true);
+    $('#buyBronzeChain').prop('disabled',true);
+} 
+
+// Functions that respond to game events
 function buyItem(item){
     var playerMoney =  parseInt($('#pMoney').text());
     var playerHealth = parseInt($('#pHealth').text());
@@ -235,29 +231,6 @@ function buyItem(item){
         $('#pMoney').html(playerMoney);
     }
 }
-function disableTravel(){
-    $('#field').prop('disabled',true);
-    $('#forest').prop('disabled',true);
-    $('#cave').prop('disabled',true);
-}
-function enableBattleCommands(){
-    $('#attack').prop('disabled',false);
-    $('#run').prop('disabled',false);
-}
-function disableBattleCommands(){
-    $('#attack').prop('disabled',true);
-    $('#run').prop('disabled',true);
-}
-function enableTravel(){
-    $('#field').prop('disabled',false);
-    $('#forest').prop('disabled',false);
-    $('#cave').prop('disabled',false);
-}
-function disableShopping(){
-    $('#buyLongSword').prop('disabled',true);
-    $('#buyPotion').prop('disabled',true);
-    $('#buyBronzeChain').prop('disabled',true);
-} 
 function battleStart(){
     disableTravel();
     enableBattleCommands()
@@ -301,24 +274,9 @@ function enemyDies(){
     $('#pExp').html(playerExp);
     clearEnemyTable();
 }
-function field(){
-    var rat = {Health:10, Attack: 4, Defense: 1, Gold: 2, exp: 2, picture: "Images/rat.jpg"};
-    var slime = {Health:12, Attack: 5, Defense: 2, Gold: 5, exp: 5, picture: "Images/slime.jpg"};
-    var monsters = [rat,slime];
-    var x = Math.floor((Math.random() * monsters.length));
-    var pic = document.createElement("img");
-    pic.src = monsters[x].picture;
-    pic.id = "pic"
 
-    battleStart();
+// Combat Turn Functions
 
-    $('#enemyHp').html(monsters[x].Health);
-    $('#enemyAtk').html(monsters[x].Attack);
-    $('#enemyDef').html(monsters[x].Defense);
-    $('#enemyGold').html(monsters[x].Gold);
-    $('#enemyExp').html(monsters[x].exp);
-    document.getElementById("enemyPicture").appendChild(pic);
-}
 function enemyAttacks(){
     var pHealth = parseInt($('#pHealth').text());
     var pDef = parseInt($('#aDef').text());
@@ -383,8 +341,30 @@ function run(){
         dialog += "You have successfully run away."
         clearEnemyTable();
     } else {
-     dialog += enemyAttacks();
-     checkBattleHP();
- }
- $('#gameText').html(dialog);
+       dialog += enemyAttacks();
+       checkBattleHP();
+   }
+   $('#gameText').html(dialog);
 }
+
+// Combat zone functions
+
+function field(){
+    var rat = {Health:10, Attack: 4, Defense: 1, Gold: 2, exp: 2, picture: "Images/rat.jpg"};
+    var slime = {Health:12, Attack: 5, Defense: 2, Gold: 5, exp: 5, picture: "Images/slime.jpg"};
+    var monsters = [rat,slime];
+    var x = Math.floor((Math.random() * monsters.length));
+    var pic = document.createElement("img");
+    pic.src = monsters[x].picture;
+    pic.id = "pic"
+
+    battleStart();
+
+    $('#enemyHp').html(monsters[x].Health);
+    $('#enemyAtk').html(monsters[x].Attack);
+    $('#enemyDef').html(monsters[x].Defense);
+    $('#enemyGold').html(monsters[x].Gold);
+    $('#enemyExp').html(monsters[x].exp);
+    document.getElementById("enemyPicture").appendChild(pic);
+}
+
