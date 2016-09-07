@@ -104,6 +104,7 @@ function loadGame() {
     UserData = checkCookie(userName);
     updateTables(UserData);
     enableTravel();
+    clearEnemyTable();
 }
 function saveGame(){   
     var cValue = "";
@@ -229,7 +230,9 @@ function buyItem(item){
         $('#wAtk').html(10);
         $('#wValue').html(18);
         $('#pMoney').html(playerMoney);
+        break;
     }
+    checkIfCanBuy();
 }
 function battleStart(){
     disableTravel();
